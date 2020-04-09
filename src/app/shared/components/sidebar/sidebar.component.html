@@ -1,0 +1,18 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+               (closed)="events.push('close!')">
+    Menu <br/>
+    <mat-list>
+      <mat-list-item><a [routerLink]="[ '/clipboard']">Item 1</a></mat-list-item><br>
+      <mat-divider></mat-divider>
+      <mat-list-item>Item 2</mat-list-item><br>
+      <mat-divider></mat-divider>
+      <mat-list-item>Item 3</mat-list-item><br>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p><mat-checkbox [(ngModel)]="opened">sidenav.opened</mat-checkbox></p>
+    <p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
+  </mat-sidenav-content>
+</mat-sidenav-container>

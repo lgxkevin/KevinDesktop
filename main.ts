@@ -1,8 +1,9 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu, Tray } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
 let win: BrowserWindow = null;
+let tray: Tray = null;
 const args = process.argv.slice(1),
     serve = args.some(val => val === '--serve');
 
@@ -58,6 +59,17 @@ try {
   // Some APIs can only be used after this event occurs.
   app.on('ready', createWindow);
 
+  app.on('ready', () => {
+    tray = new Tray('src/assets/icon/trayIcon.png')
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' }
+    ])
+    tray.setToolTip('My desktop.')
+    tray.setContextMenu(contextMenu)
+  })
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
     // On OS X it is common for applications and their menu bar

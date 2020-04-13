@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {clipboard} from 'electron';
-
+import {clipboard, ipcRenderer} from 'electron';
 
 @Component({
   selector: 'app-clipboard',
@@ -15,6 +14,14 @@ export class ClipboardComponent implements OnInit {
     const text = clipboard.readText();
     console.log(text);
 
+    ipcRenderer.on('other-custom-signal', (event, arg) => {
+      console.log('Received acknowledged from backend about receipt of our signal.');
+      console.log(event);
+      console.log(arg);
+    })
+
+    console.log('Sending message to backend.');
+    ipcRenderer.send('my-custom-signal', 'hello, are you there?');
   }
 
 }

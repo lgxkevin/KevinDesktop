@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, Menu, Tray } from 'electron';
+import { app, BrowserWindow, screen, Menu, Tray, ipcMain  } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -59,6 +59,7 @@ try {
   // Some APIs can only be used after this event occurs.
   app.on('ready', createWindow);
 
+  // Create new Tray
   app.on('ready', () => {
     tray = new Tray('src/assets/icon/trayIcon.png')
     const contextMenu = Menu.buildFromTemplate([
@@ -85,6 +86,13 @@ try {
     if (win === null) {
       createWindow();
     }
+  });
+
+  ipcMain.on('my-custom-signal', (event, arg) => {
+    console.log('Print to the main process terminal (STDOUT) when signal received from renderer process.');
+    console.log(event);
+    console.log(arg);
+    win.webContents.send('other-custom-signal', 'message from the backend process');
   });
 
 } catch (e) {

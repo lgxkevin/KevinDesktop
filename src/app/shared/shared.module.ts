@@ -19,7 +19,8 @@ import {MatButtonModule} from "@angular/material/button";
 @NgModule({
   declarations: [PageNotFoundComponent,
     WebviewDirective,
-    SidebarComponent],
+    SidebarComponent
+    ],
   imports: [
     CommonModule,
     RouterModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {clipboard, ipcRenderer} from 'electron';
+import {clipboard, ipcRenderer, remote} from 'electron';
+
 
 @Component({
   selector: 'app-clipboard',
@@ -13,7 +14,20 @@ export class ClipboardComponent implements OnInit {
   ngOnInit(): void {
     const text = clipboard.readText();
     console.log(text);
+  }
 
+  showDialog(){
+    remote.dialog.showOpenDialog({properties: ['openFile', 'multiSelections']});
+  }
+  showNotification(){
+    let myNotification = new Notification('Title', {
+      body: "Hello World!"
+    })
+    myNotification.onclick = () => {
+      console.log('Notification clicked');
+    }
+  }
+  IpcCommunicate(){
     ipcRenderer.on('other-custom-signal', (event, arg) => {
       console.log('Received acknowledged from backend about receipt of our signal.');
       console.log(event);
@@ -23,5 +37,4 @@ export class ClipboardComponent implements OnInit {
     console.log('Sending message to backend.');
     ipcRenderer.send('my-custom-signal', 'hello, are you there?');
   }
-
 }

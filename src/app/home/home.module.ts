@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 
 // Components
 import { HomeComponent } from './home.component';
@@ -13,6 +15,8 @@ import { ClipboardListComponent } from './components/clipboard/clipboard-list/cl
 // Services
 import { ClipboardService} from "../core/services/clipboard/clipboard.service";
 
+// Keys
+import {firebaseConfig} from '../../../keys/firebaseSetup';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -23,7 +27,9 @@ import { ClipboardService} from "../core/services/clipboard/clipboard.service";
   imports: [
     CommonModule,
     SharedModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
   providers:[
     ClipboardService

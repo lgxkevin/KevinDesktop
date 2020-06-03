@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {clipboard, ipcRenderer, remote} from 'electron';
+import {ClipboardService} from "../../../core/services/clipboard/clipboard.service";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {clipboard, ipcRenderer, remote} from 'electron';
 })
 export class ClipboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private clipboardService) {}
 
   ngOnInit(): void {
     const text = clipboard.readText();
